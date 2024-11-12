@@ -4,17 +4,15 @@ import { Info, Play, Heart } from "lucide-react";
 import useGetTrendingContent from "../../hooks/useGetTrendingContent";
 import { MOVIE_CATEGORIES, ORIGINAL_IMG_BASE_URL } from "../../utils/constants";
 import { useState } from "react";
-import { useAuthStore } from "../../store/authUser";
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import MovieSlider from "../../components/MovieSlider.jsx";
-import { useStore } from "../../store/content.js"; // Import the Zustand store
+import { useStore } from "../../store/content.js";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
-  const { user } = useAuthStore();
 
-  // Access favourites state and actions from Zustand store
   const { favourites, addFavourite, removeFavourite } = useStore();
   const [imgLoading, setImgLoading] = useState(true); // Track if the image is loading
 
@@ -28,7 +26,6 @@ const HomeScreen = () => {
       }
 
       const response = await axios.post(`/api/v1/user/favourites`, {
-        uname: user.username,
         movieId: movieId,
       });
 
@@ -37,7 +34,8 @@ const HomeScreen = () => {
       }
     } catch (error) {
       toast.error('Error updating favourites');
-      // Optionally revert the state change in case of failure
+   
+      
       if (favourites.has(movieId)) {
         removeFavourite(movieId);
       } else {
@@ -114,11 +112,11 @@ const HomeScreen = () => {
               More Info
             </Link>
             <button
-              onClick={() => handleAddToFavourites(trendingContent?.id)}
+              onClick={() => handleAddToFavourites(trendingContent?.title)}
               className="bg-red-500 text-white font-bold py-2 ml-4 px-4 rounded hover:bg-red-600 transition-colors duration-300"
             >
               <Heart
-                className={favourites.has(trendingContent?.id) ? "fill-current text-white" : ""}
+                className={favourites.has(trendingContent?.title) ? "fill-current text-white" : ""}
               />
             </button>
           </div>

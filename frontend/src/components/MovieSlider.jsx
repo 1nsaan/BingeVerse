@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { useContentStore } from "../store/content";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const MovieSlider = ({ category }) => {
     // Initialize favourites when the user data is available
     if (user && user.favourites) {
       initializeFavourites(user.favourites);
-      
+
     }
   }, [user, initializeFavourites]);
 
@@ -35,7 +35,7 @@ const MovieSlider = ({ category }) => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getContent();
   }, [contentType, category]);
 
@@ -53,12 +53,12 @@ const MovieSlider = ({ category }) => {
 
   const handleAddToFavourites = async (movieId) => {
     const isFavourite = favourites.has(movieId);
-    console.log(movieId+" "+isFavourite);
+    console.log(movieId + " " + isFavourite);
     if (isFavourite) {
-      console.log("removing"+movieId);
+      console.log("removing" + movieId);
       removeFavourite(movieId);
     } else {
-      console.log("dding"+movieId);
+      console.log("dding" + movieId);
       addFavourite(movieId);
     }
     console.log(favourites);
