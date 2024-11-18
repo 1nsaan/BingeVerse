@@ -12,11 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 //Todo: Add back the protect route middleware
-app.use("/api/v1/movies", movieRoutes);
-app.use("/api/v1/search", searchRoutes);
-app.use("/api/v1/user",userRoutes);
+app.use("/api/v1/movies", protectRoute, movieRoutes);
+app.use("/api/v1/search", protectRoute, searchRoutes);
+app.use("/api/v1/user", protectRoute, userRoutes);
 app.use("/api/v1/auth", authRoutes);
-
+app.use("/api/v1/health",(req,res)=>{res.send("OK")})
 console.log(ENV_VARS.MONGO_URI);
 
 app.listen(5000, () => {

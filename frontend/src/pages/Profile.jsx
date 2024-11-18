@@ -1,10 +1,21 @@
-import { useState } from 'react';
-import { Heart } from 'lucide-react'; // Assuming you are using react-icons for heart icon
+import { useEffect, useState } from 'react';
+
 import { useAuthStore } from '../store/authUser';
+import { useContentStore, userStore } from '../store/content';
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState("favorites");
     const { user } = useAuthStore();
+    const { setContentType } = useContentStore();
+    console.log(user.favorites);
+    const suggestions = user.recommendations;
+    const favourites = userStore((state) => state.favourites);
+    console.log(favourites);
+    const handleDelete = (itemId) => {
+
+    }
+    console.log(JSON.stringify(favourites));
     return (
         <div className="bg-gray-100 min-h-screen py-8">
             <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -33,6 +44,12 @@ const UserProfile = () => {
                             onClick={() => setActiveTab("favorites")}
                         >
                             Favorites
+                        </button>
+                        <button
+                            className={`py-2 px-4 text-lg ${activeTab === "suggestions" ? "border-b-4 border-blue-500" : "text-gray-600"}`}
+                            onClick={() => setActiveTab("suggestions")}
+                        >
+                            Suggestions
                         </button>
 
                         <button
@@ -65,19 +82,53 @@ const UserProfile = () => {
                     <div className="mt-8">
                         <h2 className="text-xl font-semibold">Favorite Movies</h2>
                         <div className="mt-4">
-                            {user.favourites.map((item) => (
+                            {
+                                user.favourites.map((item) => (
+                                    <div className="relative flex items-center justify-between border p-2 mb-2" key={item.id}>
+                                        <h4 className="flex-grow">{item}</h4>
+                                        <div className="flex space-x-2">
+                                            <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                                Watch
+                                            </button>
+                                            <button
+                                                className="px-3 py-1 bg-red-500 text-white  rounded hover:bg-red-600"
+                                                onClick={(e) => handleDelete(item.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+
+                    </div>
+                )}
+
+
+                {activeTab === "suggestions" && (
+                    <div className="mt-8">
+                        <h2 className="text-xl font-semibold">Suggested Movies</h2>
+                        <div className="mt-4">
+                            {suggestions.map((item) => (
                                 <div className="relative flex items-center justify-between border p-2 mb-2" key={item.id}>
-                                    <h4 className="flex-grow">{item}</h4>
+                                    <div className="flex-row">
+                                        <h4>{item.movieTitle}</h4>
+                                        <p> {item.username}</p>
+                                    </div>
                                     <div className="flex space-x-2">
-                                        <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
-                                            Watch
-                                        </button>
-                                        <button
-                                            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                                            onClick={() => handleDelete(item.id)}
-                                        >
-                                            Delete
-                                        </button>
+                                        <Link to={"/watch/" + item.movieId} onClick={() => {
+                                            setContentType("movies");
+                                        }}>
+                                            <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                                Watch
+                                            </button>
+                                            <button
+                                                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                                onClick={(e) => handleDelete(item.movieId)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             ))}

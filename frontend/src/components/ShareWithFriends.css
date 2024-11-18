@@ -1,0 +1,77 @@
+/* ShareWithFriends.css */
+
+.share-container {
+  position: relative;
+  display: inline-block;
+}
+
+.share-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.share-button:hover {
+  background-color: #45a049;
+}
+
+.friends-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.confirm-button, .clear-button {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+
+.confirm-button:hover {
+  background-color: #007bb5;
+}
+
+.clear-button {
+  background-color: #f44336;
+}
+
+.clear-button:hover {
+  background-color: #da190b;
+}
+
+.share-message {
+  margin-top: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+
+.red{
+  background-color: White;
+  width: 200px;
+}

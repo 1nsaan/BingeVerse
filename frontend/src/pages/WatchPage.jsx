@@ -8,9 +8,11 @@ import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
-import {toast} from "react-hot-toast";
+import ShareWithFriends from "../components/ShareWithFriends";
+import { toast } from "react-hot-toast";
 const WatchPage = () => {
   const { id } = useParams();
+
   const [trailers, setTrailers] = useState([]);
   const [currentTrailerIdx, setCurrentTrailerIdx] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -19,8 +21,8 @@ const WatchPage = () => {
   const { contentType } = useContentStore();
   const [watchMovie, setWatchMovie] = useState(false);
   const sliderRef = useRef(null);
-  const [userPurchased,setUserPurchased] = useState([id]);
-  const [hasPurchased,setHasPurchased] = useState(false);
+  const [userPurchased, setUserPurchased] = useState([id]);
+  const [hasPurchased, setHasPurchased] = useState(false);
   useEffect(() => {
     const getTrailers = async () => {
       try {
@@ -84,19 +86,21 @@ const WatchPage = () => {
   const scrollRight = () => {
     if (sliderRef.current) sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
   };
-  const handleWatchClick = () =>{
-	/*fetch the purchased array
-	 check if id in purchased
-	 if id present -> let them watch
-	 else display purchase 
-	*/
-    if(userPurchased.includes(id)){
-    setHasPurchased(true);
-		setWatchMovie(true);
+  const handleWatchClick = () => {
+    /*fetch the purchased array
+     check if id in purchased
+     if id present -> let them watch
+     else display purchase 
+    */
+    if (userPurchased.includes(id)) {
+      setHasPurchased(true);
+      setWatchMovie(true);
     }
-    else 
-     toast.error("Purchase the movie to proceed");
+    else
+      toast.error("Purchase the movie to proceed");
   }
+
+
   if (loading)
     return (
       <div className='min-h-screen bg-black p-10'>
@@ -164,19 +168,16 @@ const WatchPage = () => {
                   <span className='font-bold text-red-600'>{content?.title || content?.name}</span> 😥
                 </h2>
               )}
-              <div className="button flex  gap-1">
-              <button
-                onClick={handleWatchClick}
-                className='mx-auto mt-4 bg-red-500 text-white font-bold py-2 px-4 rounded '
-              >
-                Watch
-              </button>
-              {!hasPurchased && <button
-                onClick={handleWatchClick}
-                className='mx-auto mt-4 ml-4 bg-red-500 text-white font-bold py-2 px-4 rounded '
-              >
-                Purchase
-              </button>}
+              <div className="button flex">
+                <button
+                  onClick={handleWatchClick}
+                  className='mx-auto mt-4 bg-red-500 text-white font-bold py-2 px-4 rounded '
+                >
+                  Watch
+                </button>
+
+
+                <ShareWithFriends movieId={content.id} movieTitle = {content.title}/>
               </div>
             </div>
           ) : (

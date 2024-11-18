@@ -6,14 +6,14 @@ import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { useAuthStore } from "../store/authUser";
 import toast from "react-hot-toast";
-import { useStore } from "../store/content";
+import { userStore } from "../store/content";
 
 const MovieSlider = ({ category }) => {
   const { contentType } = useContentStore();
   const [content, setContent] = useState([]);
   const [showArrows, setShowArrows] = useState(false);
   const { user } = useAuthStore();
-  const { favourites, initializeFavourites, addFavourite, removeFavourite } = useStore();
+  const { favourites, initializeFavourites, addFavourite, removeFavourite } = userStore();
   const sliderRef = useRef(null);
   const formattedCategoryName =
     category.replaceAll("_", " ")[0].toUpperCase() + category.replaceAll("_", " ").slice(1);

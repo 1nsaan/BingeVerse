@@ -8,12 +8,12 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import MovieSlider from "../../components/MovieSlider.jsx";
-import { useStore } from "../../store/content.js";
+import { userStore } from "../../store/content.js";
 
 const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
 
-  const { favourites, addFavourite, removeFavourite } = useStore();
+  const { favourites, addFavourite, removeFavourite } = userStore();
   const [imgLoading, setImgLoading] = useState(true); // Track if the image is loading
 
   const handleAddToFavourites = async (movieId) => {
@@ -46,7 +46,7 @@ const HomeScreen = () => {
 
   if (!trendingContent)
     return (
-      <div className="h-screen text-white relative">
+      <div className="h-screen text-white relative cursor-pointer">
         <Navbar />
         <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer" />
       </div>

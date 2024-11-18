@@ -2,12 +2,13 @@ import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-hot-toast"; 
 
+
 export const useContentStore = create((set) => ({
 	contentType: "movies",
 	setContentType: (type) => set({ contentType: type }),
 }));
 
-export const useStore = create((set) => ({
+export const userStore = create((set) => ({
 	favourites: new Set(),
 
 	initializeFavourites: (favouritesArray) => {
@@ -30,7 +31,6 @@ export const useStore = create((set) => ({
 		try {
 			await axios.post('/api/v1/user/favourites/', { movieId });
 			console.log("Favourite added successfully");
-			toast.success("Added to favourites!");
 		} catch (error) {
 			console.error("Failed to add favourite", error);
 			set((state) => {
@@ -57,7 +57,6 @@ export const useStore = create((set) => ({
 
 			await axios.delete(`/api/v1/user/favourites/${movieId}`);
 			console.log("Favourite removed successfully");
-			toast.success("Removed from favourites!");
 		} catch (error) {
 			console.error("Failed to remove favourite", error);
 
@@ -70,14 +69,12 @@ export const useStore = create((set) => ({
 		}
 	},
 
-	handleAddToFavourites: async (movieId) => {
-		const isFavourite = this.favourites.has(movieId);
-
-
-		if (isFavourite) {
-			await this.removeFavourite(movieId);
-		} else {
-			await this.addFavourite(movieId);
+	shareWithFriends: async (movieId, movieTitle,friendsList)=>{
+		try {
+			await axios.post('/api/v1/user/share/',{movieId,movieTitle,friendsList});
+			console.log("Shared with friends successfully");
+		} catch (error) {
+			console.log("Error in Sharing with friends", error);
 		}
-	},
+	}
 }));

@@ -28,6 +28,14 @@ const userSchema = mongoose.Schema(
         favourites:{
             type:Array,
             default:[],
+        },
+        recommendations:{
+            type:Array,
+            default:[],
+        },
+        watchLater:{
+            type:Array,
+            default:[]
         }
     }
 )
