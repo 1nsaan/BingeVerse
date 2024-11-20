@@ -34,6 +34,8 @@ export async function addToFavourites(req, res) {
 
 }
 
+
+
 export async function removeFromFavourites(req, res) {
   const { user } = req;  // Access the authenticated user from req.user
   const { id } = req.params;  // Extract movieId from the request body
@@ -82,3 +84,20 @@ export async function suggestContent(req, res) {
   return res.status(200).json();
 }
 
+
+export async function addToFriends(req, res) {
+  const { user } = req;  const { friendId } = req.params;
+  const username = user.username;
+  try {
+    await User.updateOne({ username }, {
+      $addToSet: {
+        friends: friendId
+      }
+    });
+    return res.status(200).json({ success: "added successfully" });
+  } catch (error) {
+    console.error('Error adding to friendList:', error);
+    return res.status(500).json({ message: 'Server error fetching fav', error });
+  }
+
+}
