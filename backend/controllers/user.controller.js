@@ -86,7 +86,7 @@ export async function suggestContent(req, res) {
 
 
 export async function addToFriends(req, res) {
-  const { user } = req;  const { friendId } = req.params;
+  const { user } = req;  const { friendId } = req.body;
   const username = user.username;
   try {
     await User.updateOne({ username }, {

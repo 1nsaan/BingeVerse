@@ -37,7 +37,14 @@ const SearchPage = () => {
   };
 
   const addToFriends = async (friendId)=>{
-               
+       
+        try{
+          const res = await axios.post('/api/v1/user/friend/',{friendId});
+          toast.success("Added to Friends");
+        }catch(error){
+           console.log("Error adding to Friends",error);
+           toast.error("Couldn't add. Please try again later");
+        }
   }
 
   return (
@@ -115,7 +122,7 @@ const SearchPage = () => {
               <div key={user._id} className="bg-gray-800 p-4 rounded-lg flex flex-col items-center relative">
                 {activeTab === "person" && (
                   <div >
-                    <button className="absolute right-0 top-0" onClick={(e)=>addToFriends(user.username)}>Add Friend</button>
+                    <button className="absolute right-0 top-0 bg-red-600 px-2 py-2" onClick={(e)=>addToFriends(user.username)}>+</button>
                     <img
                       src={user.image}
                       alt={user.username}
