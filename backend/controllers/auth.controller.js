@@ -7,7 +7,7 @@ export const signup = async (req, res) => {
     try {
 
         const { username, email, password } = req.body;
-
+    
         if (!email || !password || !username) {
             res.status(400).json({ success: false, message: "Please enter all fields" });
         }
@@ -93,7 +93,7 @@ export const login = async (req, res) => {
                 }
             })
         } else {
-            return res.status(400).json({ success: false, message: "Invalid Credentials" });
+            return res.status(400).json({success:false,message:"Invalid Credentials"});
 
         }
     } catch (error) {
@@ -117,11 +117,11 @@ export const logout = (req, res) => {
 }
 
 export async function authCheck(req, res) {
-    try {
-        res.status(200).json({ success: true, user: req.user });
-    } catch (error) {
-        console.log("Error in authCheck controller", error.message);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
+	try {
+		res.status(200).json({ success: true, user: req.user });
+	} catch (error) {
+		console.log("Error in authCheck controller", error.message);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
 }
 

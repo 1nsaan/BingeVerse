@@ -68,7 +68,7 @@ const SearchHistoryPage = () => {
 					{searchHistory?.map((entry) => (
 						<div key={entry.id} className='bg-gray-800 p-4 rounded flex items-start'>
 							<img
-								src={SMALL_IMG_BASE_URL + entry.image}
+								src={(SMALL_IMG_BASE_URL + entry.image)|| entry.image}
 								alt='History image'
 								className='size-16 rounded-full object-cover mr-4'
 							/>

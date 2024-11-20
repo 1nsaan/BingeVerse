@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { toast } from "react-hot-toast"; 
+import { toast } from "react-hot-toast";
 
 
 export const useContentStore = create((set) => ({
@@ -10,7 +10,6 @@ export const useContentStore = create((set) => ({
 
 export const userStore = create((set) => ({
 	favourites: new Set(),
-
 	initializeFavourites: (favouritesArray) => {
 		set(() => {
 			const initialFavourites = new Set(favouritesArray);
@@ -19,6 +18,8 @@ export const userStore = create((set) => ({
 	},
 
 	addFavourite: async (movieId) => {
+		console.log(movieId);
+		console.log()
 		set((state) => {
 			if (!state.favourites.has(movieId)) {
 				const updatedFavourites = new Set(state.favourites);
@@ -69,12 +70,12 @@ export const userStore = create((set) => ({
 		}
 	},
 
-	shareWithFriends: async (movieId, movieTitle,friendsList)=>{
+	shareWithFriends: async (movieId, movieTitle, friendsList) => {
 		try {
-			await axios.post('/api/v1/user/share/',{movieId,movieTitle,friendsList});
+			await axios.post('/api/v1/user/share/', { movieId, movieTitle, friendsList });
 			console.log("Shared with friends successfully");
 		} catch (error) {
 			console.log("Error in Sharing with friends", error);
 		}
-	}
+	},
 }));

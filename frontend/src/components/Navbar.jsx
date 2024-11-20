@@ -16,16 +16,13 @@ const Navbar = () => {
 		<header className='max-w-6xl mx-auto flex flex-wrap items-center justify-between p-4 h-20   cursor-pointer'>
 			<div className='flex items-center gap-10 z-50'>
 				<Link to='/'>
-					<img src='/netflix-logo.png' alt='Netflix Logo' className='w-32 sm:w-40' />
+					<img src='/netflix-logo.png' alt='Netflix Logo' className=' w-32 sm:w-40' onClick={() => setContentType("movies")} />
 				</Link>
 
 				{/* desktop navbar items */}
 				<div className='hidden sm:flex gap-2 items-center'>
 					<Link to='/' className='hover:underline' onClick={() => setContentType("movies")}>
 						Movies
-					</Link>
-					<Link to='/' className='hover:underline' onClick={() => setContentType("tv")}>
-						Tv Shows
 					</Link>
 					<Link to='/history' className='hover:underline'>
 						Search History
@@ -50,9 +47,7 @@ const Navbar = () => {
 					<Link to={"/"} className='block hover:underline p-2' onClick={toggleMobileMenu}>
 						Movies
 					</Link>
-					<Link to={"/"} className='block hover:underline p-2' onClick={toggleMobileMenu}>
-						Tv Shows
-					</Link>
+
 					<Link to={"/history"} className='block hover:underline p-2' onClick={toggleMobileMenu}>
 						Search History
 					</Link>

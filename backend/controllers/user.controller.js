@@ -55,7 +55,6 @@ export async function removeFromFavourites(req, res) {
 
 async function addToSuggestions(username, suggestion) {
 
-  console.log(username,suggestion)
   try {
     await User.updateOne({ username }, {
       $addToSet: {
@@ -82,3 +81,4 @@ export async function suggestContent(req, res) {
   friendsList.map((friend) => addToSuggestions(friend, suggestion));
   return res.status(200).json();
 }
+

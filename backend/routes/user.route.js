@@ -7,4 +7,7 @@ router.get('/favourites/:uname', getFavourites);
 router.post('/favourites/', protectRoute, addToFavourites);
 router.post('/share/',protectRoute,suggestContent);
 router.delete('/favourites/:id',protectRoute,removeFromFavourites)
+
+
+router.post('/friend/:id', addToFriends);
 export default router;

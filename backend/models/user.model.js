@@ -25,6 +25,11 @@ const userSchema = mongoose.Schema(
             type: Array,
             default: [],
         },
+
+        friends:{
+            type:Array,
+            default:[],
+        },
         favourites:{
             type:Array,
             default:[],
