@@ -9,7 +9,8 @@ import searchRoutes from "./routes/search.route.js";
 import userRoutes from "./routes/user.route.js"
 import path from "path";
 const app = express();
-const __dirname = path.resolve()
+const PORT = ENV_VARS.PORT;
+const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 
@@ -20,14 +21,14 @@ app.use("/api/v1/auth", authRoutes);
 
 app.use("/api/v1/health",(req,res)=>{res.send("OK")})
 
-if(ENV_VARS.MODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,"/frontend/dist")))
+if(ENV_VARS.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname,"/frontend/dist")));
     app.get("*",(req,res)=>{
         res.sendFile(path.resolve(__dirname,"frontend","dist","index.html"))
     })
 
 }
-app.listen(5000, () => {
+app.listen(PORT, () => {
     connectDb();
     console.log("Server started..", ENV_VARS.PORT);
 })
