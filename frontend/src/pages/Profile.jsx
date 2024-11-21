@@ -8,14 +8,12 @@ const UserProfile = () => {
     const [activeTab, setActiveTab] = useState("favorites");
     const { user } = useAuthStore();
     const { setContentType } = useContentStore();
-    console.log(user.favorites);
     const suggestions = user.recommendations;
     const favourites = userStore((state) => state.favourites);
-    console.log(favourites);
+    console.log(favourites, typeof(favourites));
     const handleDelete = (itemId) => {
 
     }
-    console.log(JSON.stringify(favourites));
     return (
         <div className="bg-gray-100 min-h-screen py-8">
             <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -83,7 +81,7 @@ const UserProfile = () => {
                         <h2 className="text-xl font-semibold">Favorite Movies</h2>
                         <div className="mt-4">
                             {
-                                user.favourites.map((item) => (
+                                [...favourites].map((item) => (
                                     <div className="relative flex items-center justify-between border p-2 mb-2" key={item.id}>
                                         <h4 className="flex-grow">{item}</h4>
                                         <div className="flex space-x-2">

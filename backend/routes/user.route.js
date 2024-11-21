@@ -9,5 +9,5 @@ router.post('/share/', protectRoute, suggestContent);
 router.delete('/favourites/:id', protectRoute, removeFromFavourites)
 
 
-router.post('/friend/', addToFriends);
+router.post('/friend/', addToFriends)
 export default router;

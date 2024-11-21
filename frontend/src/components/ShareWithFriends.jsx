@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ShareWithFriends.css'; 
-import { userStore } from "../store/content.js"
+import { useAuthStore } from "../store/authUser.js";
+import {userStore} from "../store/content.js";
 function ShareWithFriends({ movieId , movieTitle}) {
   const shareWithFriends = userStore().shareWithFriends;
   const [showFriends, setShowFriends] = useState(false);
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [shareMessage, setShareMessage] = useState('');
-  const friendsList = ['test1', 'test2', 'Charlie', 'Diana'];
-
+  const friendsList = useAuthStore().user.friends;
   const handleShareClick = () => {
     setShowFriends(!showFriends);
     setShareMessage(''); 
@@ -26,7 +26,6 @@ function ShareWithFriends({ movieId , movieTitle}) {
     
     if (selectedFriends.length > 0) {
       shareWithFriends(movieId, movieTitle,selectedFriends);
-      // console.log(movieId, selectedFriends);
       setSelectedFriends([]);
       setShowFriends(false);
     } else {
